@@ -1,50 +1,51 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+export default 
+{
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          50: '#EFF6FF',
-          100: '#DBEAFE',
-          200: '#BFDBFE',
-          300: '#93C5FD',
-          400: '#60A5FA',
-          500: '#3B82F6',
-          600: '#2563EB',
-          700: '#1D4ED8',
-          800: '#1E40AF',
-          900: '#1E3A8A',
-        },
-        secondary: {
-          50: '#ECFEFF',
-          100: '#CFFAFE',
-          200: '#A5F3FC',
-          300: '#67E8F9',
-          400: '#22D3EE',
-          500: '#06B6D4',
-          600: '#0891B2',
-          700: '#0E7490',
-          800: '#155E75',
-          900: '#164E63',
-        },
-        accent: {
-          50: '#FFF7ED',
-          100: '#FFEDD5',
-          200: '#FED7AA',
-          300: '#FDBA74',
-          400: '#FB923C',
-          500: '#F97316',
-          600: '#EA580C',
-          700: '#C2410C',
-          800: '#9A3412',
-          900: '#7C2D12',
-        }
+//   
+theme: {
+  extend: {
+    colors: {
+      primary: {
+        50: "#FAF5E4",  // Light cream
+        100: "#F5E6CC",
+        200: "#EDD2AA",
+        300: "#E3BC84",
+        400: "#D89E4A", // Golden ochre
+        500: "#C68532",
+        600: "#A56629",
+        700: "#814D22",
+        800: "#613A1A",
+        900: "#402611", // Dark walnut
       },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+      secondary: {
+        50: "#E7F3F1",  // Soft mint
+        100: "#C9E7E4",
+        200: "#9FD5D1",
+        300: "#74C2BD",
+        400: "#46AFA9", // Teal jade
+        500: "#32948F",
+        600: "#28766F",
+        700: "#1E5953",
+        800: "#153D38",
+        900: "#0B201E", // Deep forest green
+      },
+      accent: {
+        50: "#FBEDE8",  // Terracotta light
+        100: "#F8D9C7",
+        200: "#F3BFA0",
+        300: "#ECA278",
+        400: "#E48250", // Clay orange
+        500: "#C36A40",
+        600: "#9D5233",
+        700: "#7A3E28",
+        800: "#562A1D",
+        900: "#321710", // Burnt brown
       },
     },
-  },
-  plugins: [],
-};
+    fontFamily: {
+      sans: ['"Poppins"', 'system-ui', 'sans-serif'], // Clean, professional font
+    },
+  },
+},
+}
