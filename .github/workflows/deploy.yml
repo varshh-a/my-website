@@ -6,7 +6,9 @@ on:
       - main
 
 permissions:
-  contents: write   # ✅ Needed for GitHub Pages to push the build
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
