@@ -23,7 +23,6 @@ const Login: React.FC = () => {
 
     try {
       await login(email, password);
-      // Redirect based on user role
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       if (user.role === 'admin') {
         navigate('/admin/dashboard');
@@ -36,12 +35,19 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="text-center">
+    <div
+      className="min-h-screen bg-cover bg-center flex items-center justify-center relative"
+      style={{ backgroundImage: `url(https://images.unsplash.com/photo-1692481642832-1952101f74ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGhhbmRsb29tcyUyMGFuZCUyMGhhbmRpY3JhZnRzfGVufDB8fDB8fHww)` }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-md px-6 py-10 bg-white/90 rounded-xl shadow-lg">
+        <div className="text-center mb-6">
           <LogIn className="mx-auto h-12 w-12 text-primary-600" />
-          <h2 className="mt-3 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <h2 className="mt-2 text-2xl font-bold text-gray-900">Sign in to your account</h2>
+          <p className="mt-1 text-sm text-white">
             Or{' '}
             <Link to="/signup" className="font-medium text-primary-600 hover:text-primary-500">
               create a new account
@@ -49,64 +55,52 @@ const Login: React.FC = () => {
           </p>
         </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow-md sm:rounded-lg sm:px-10">
-            {formError && (
-              <div className="mb-4 bg-red-50 p-3 rounded border border-red-200">
-                <p className="text-red-800 text-sm">{formError}</p>
-              </div>
-            )}
-
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <Input
-                id="email"
-                label="Email address"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-
-              <Input
-                id="password"
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-
-              <div className="flex items-center justify-between">
-                <div className="text-sm">
-                  <Link to="/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
-                    Forgot your password?
-                  </Link>
-                </div>
-              </div>
-
-              <Button 
-                type="submit" 
-                variant="primary"
-                fullWidth
-                disabled={isLoading}
-                size="lg"
-              >
-                {isLoading ? 'Signing in...' : 'Sign in'}
-              </Button>
-
-              <div className="mt-4 text-center">
-                <p className="text-sm text-gray-600">
-                  Demo credentials:
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  Admin: admin@example.com / admin123
-                </p>
-                <p className="text-xs text-gray-500">
-                  Customer: customer@example.com / customer123
-                </p>
-              </div>
-            </form>
+        {formError && (
+          <div className="mb-4 bg-red-50 p-3 rounded border border-red-200">
+            <p className="text-red-800 text-sm">{formError}</p>
           </div>
+        )}
+
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          <Input
+            id="email"
+            label="Email address"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <Input
+            id="password"
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <div className="flex items-center justify-between">
+            <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:text-primary-500">
+              Forgot your password?
+            </Link>
+          </div>
+
+          <Button
+            type="submit"
+            variant="primary"
+            fullWidth
+            disabled={isLoading}
+            size="lg"
+          >
+            {isLoading ? 'Signing in...' : 'Sign in'}
+          </Button>
+        </form>
+
+        <div className="mt-6 text-center text-sm text-gray-600">
+          <p>Demo credentials:</p>
+          <p className="text-xs mt-1 text-gray-500">Admin: admin@example.com / admin123</p>
+          <p className="text-xs text-gray-500">Customer: customer@example.com / customer123</p>
         </div>
       </div>
     </div>

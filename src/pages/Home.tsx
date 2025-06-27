@@ -1,6 +1,13 @@
+// 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Shield, Truck, CreditCard, ChevronRight } from 'lucide-react';
+import {
+  ShoppingBag,
+  Shield,
+  Truck,
+  CreditCard,
+  ChevronRight,
+} from 'lucide-react';
 import { useProducts } from '../context/ProductContext';
 import ProductCard from '../components/ProductCard';
 
@@ -11,22 +18,23 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      {/* <div className="bg-gradient-to-r from-primary-600 to-primary-800 text-white"> */}
       <div
-  className="bg-blue-700 text-black"
-  style={{ backgroundImage: "https://plus.unsplash.com/premium_photo-1679852311419-0c1ce839a4e9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aGFuZGljcmFmdHMlMjB3b3JsZHxlbnwwfHwwfHx8MA%3D%3D" }}
+        className="text-black relative bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://plus.unsplash.com/premium_photo-1679852311462-733ae167dbc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aGFuZGljcmFmdHMlMjBpbmR1c3RyeSUyMGxvZ298ZW58MHx8MHx8fDA%3D')",
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
->
- 
-
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                 Empowering rural artisans through digital marketing
               </h1>
-              <p className="text-lg text-primary-100 mb-8">
+              <p className="text-lg text-white mb-8">
                 Discover quality products with secure shopping and fast delivery. Your one-stop
                 destination for all your shopping needs.
               </p>
@@ -40,20 +48,18 @@ const Home: React.FC = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-900 bg-opacity-20 hover:bg-opacity-30 transition-colors"
-                  
-          
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-white/20 hover:bg-white/30 transition-colors"
                 >
                   Create Account
                 </Link>
               </div>
             </div>
             <div className="hidden md:block">
-              <img 
-                src="https://dcassetcdn.com/design_img/3695274/817167/817167_21969424_3695274_eb7f292e_image.png" 
-               alt="Shopping" 
-                className="rounded-lg shadow-2xl max-h-[400px] object-cover"
-              />
+              {/* <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl8Z1rT_gXdQrvmIcRVgFz4lDPqplDUAr9Fw&s"
+                alt="Shopping"
+                className="w-[500px] h-[600px] rounded-lg shadow-2xl object-cover"
+              /> */}
             </div>
           </div>
         </div>
@@ -70,10 +76,7 @@ const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
 

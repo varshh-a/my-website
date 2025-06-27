@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useProducts } from '../context/ProductContext';
 import { useAuth } from '../context/AuthContext';
-import { ShoppingCart, ArrowLeft, Check } from 'lucide-react';
+import { ShoppingCart, ArrowLeft, Check, X } from 'lucide-react';
 import Button from '../components/Button';
 
 const ProductDetail: React.FC = () => {
@@ -10,7 +10,7 @@ const ProductDetail: React.FC = () => {
   const { products } = useProducts();
   const { user } = useAuth();
   const navigate = useNavigate();
-  
+
   const product = products.find(p => p.id === id);
 
   if (!product) {
@@ -29,10 +29,19 @@ const ProductDetail: React.FC = () => {
     );
   }
 
-  const addToCart = () => {
-    // In a real application, this would add the product to a cart
-    // For now, we'll just show an alert
-    alert(`${product.title} added to cart!`);
+  const placeOrder = () => {
+    if (!user) {
+      alert('Please login to place an order.');
+      navigate('/login');
+      return;
+    }
+
+    // In a real app, this would be a POST API request to create an order
+    console.log('Order placed for:', product);
+    alert(`Order placed successfully for ${product.title}!`);
+
+    // Navigate to customer dashboard or order summary
+    navigate('/customer/dashboard');
   };
 
   const formattedDate = new Date(product.createdAt).toLocaleDateString('en-US', {
@@ -102,14 +111,14 @@ const ProductDetail: React.FC = () => {
               {user?.role === 'customer' && (
                 <div className="mt-6">
                   <Button
-                    onClick={addToCart}
+                    onClick={placeOrder}
                     variant="primary"
                     size="lg"
                     fullWidth
                     disabled={product.stock === 0}
                     icon={<ShoppingCart size={18} />}
                   >
-                    {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+                    {product.stock > 0 ? 'Place Order' : 'Out of Stock'}
                   </Button>
                 </div>
               )}

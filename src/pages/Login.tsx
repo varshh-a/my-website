@@ -1,12 +1,12 @@
-// src/pages/Login.tsx or similar
-import React from 'react';
-import bgImage from '../assets/login-bg.jpg'; // adjust path if needed
+// import React from 'react';
 
 const Login = () => {
   return (
     <div
       className="min-h-screen bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${bgImage})` }}
+      style={{
+        backgroundImage: `url(https://images.unsplash.com/photo-1692481642832-1952101f74ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGhhbmRsb29tcyUyMGFuZCUyMGhhbmRpY3JhZnRzfGVufDB8fDB8fHww)`
+      }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>

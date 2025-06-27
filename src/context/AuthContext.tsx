@@ -1,7 +1,7 @@
+// 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, AuthContextType } from '../types';
 
-// Mock user database
 const mockUsers = [
   {
     id: '1',
@@ -25,22 +25,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [logoutTimer, setLogoutTimer] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Check for user in localStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+      startLogoutTimer(); // Start timer if user is present
     }
     setIsLoading(false);
   }, []);
 
+  const startLogoutTimer = () => {
+    if (logoutTimer) clearTimeout(logoutTimer);
+    const timer = setTimeout(() => {
+      logout();
+    }, 60 * 90 * 2000); // 30 minutes
+    setLogoutTimer(timer);
+  };
+
   const login = async (email: string, password: string): Promise<void> => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
-      // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 500));
 
       const foundUser = mockUsers.find(
@@ -54,6 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { password: _, ...userWithoutPassword } = foundUser;
       setUser(userWithoutPassword);
       localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+      startLogoutTimer();
     } catch (err) {
       setError((err as Error).message);
       throw err;
@@ -70,18 +79,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ): Promise<void> => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
-      // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 500));
 
-      // Check if user already exists
       const userExists = mockUsers.some((u) => u.email === email);
       if (userExists) {
         throw new Error('User with this email already exists');
       }
 
-      // Create new user (in a real app, this would be stored in a database)
       const newUser = {
         id: Math.random().toString(36).substring(2, 9),
         username,
@@ -89,11 +95,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         role,
       };
 
-      // Add user to mock database (this is just for demo purposes)
       mockUsers.push({ ...newUser, password });
-      
+
       setUser(newUser);
       localStorage.setItem('user', JSON.stringify(newUser));
+      startLogoutTimer();
     } catch (err) {
       setError((err as Error).message);
       throw err;
@@ -105,6 +111,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = (): void => {
     setUser(null);
     localStorage.removeItem('user');
+    if (logoutTimer) clearTimeout(logoutTimer);
   };
 
   const value = {
